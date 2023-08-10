@@ -28,6 +28,7 @@ A repository showcasing a monotone illustration of a landscape, with a wide gras
 - [Installation](#installation)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
+- [Credits](#credits)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -51,6 +52,16 @@ A repository showcasing a monotone illustration of a landscape, with a wide gras
 - [PHP 8.0+](https://www.php.net/): Server-side scripting language.
 - [Node.js 18+](https://nodejs.org/): JavaScript runtime.
 - [Astronomy Engine](https://www.npmjs.com/package/astronomy-engine): NPM package for astronomy calculations.
+
+## Credits
+
+Stuff who inspired/helped me
+
+- [Moon & sun phases](https://www.timeanddate.com/astronomy/france/avignon)
+- [Moon Phase on js canvas](https://codepen.io/anowodzinski/pen/ZWKXPQ)
+- [Don Cross sky view](http://cosinekitty.com/sky_view.html)
+- [Firewatch-style SVG parallax landscape](https://codepen.io/accudio/pen/GRNmbjJ)
+- [Chat GPT](https://openai.com/blog/chatgpt)
 
 ## Contributing
 
