@@ -1,13 +1,17 @@
-# The Scenery
+# [The Scenery]([URL](https://mlnop.fr/scenery/))
 
 <img src="https://img.shields.io/badge/php-%5E8.0-blue">
 <img src="https://img.shields.io/badge/node-%3E%3D%2018-brightgreen">
 
 <br>
 
-![Monotone Landscape Illustration](https://mlnop.fr/portal/assets/img/scenery.webp)
+[![Monotone Landscape Illustration](https://mlnop.fr/portal/assets/img/scenery.webp)](https://mlnop.fr/scenery/)
+
+<br>
 
 A repository showcasing a monotone illustration of a landscape, with a wide grass field, trees, mountains, and a small house. The illustration dynamically represents the solar system planets based on the user's time, date, and location. The color scheme of the website changes according to the time of day, and a night sky with stars appears during nightime hours.
+
+[Live preview](https://mlnop.fr/scenery/)
 
 ## Features
 
