@@ -1,0 +1,55 @@
+{
+    "name": "scenery",
+    "version": "2.0.0",
+    "description": "## VHosts",
+    "main": "vite.config.js",
+    "scripts": {
+        "watch": "vite",
+        "prod": "vite build",
+        "build": "npm run prod --chore=all"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MLNOP/Scenery.git"
+    },
+    "keywords": [
+        "scenery",
+        "astronomy-engine"
+    ],
+    "devDependencies": {
+        "@mlnop/string-replace": "^1.0.5",
+        "@rollup/plugin-terser": "^0.4.3",
+        "autoprefixer": "^10.4.14",
+        "eslint": "^8.46.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-config-standard": "^17.1.0",
+        "eslint-plugin-import": "^2.28.0",
+        "eslint-plugin-n": "^16.0.1",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-prettier": "^5.0.0",
+        "eslint-plugin-promise": "^6.1.1",
+        "eslint-plugin-simple-import-sort": "^10.0.0",
+        "eslint-plugin-unused-imports": "^3.0.0",
+        "prettier": "^3.0.1",
+        "sass": "^1.65.1",
+        "sass-loader": "^13.3.2",
+        "stylelint": "^15.10.2",
+        "stylelint-config-property-sort-order-smacss": "^9.1.0",
+        "stylelint-config-sass-guidelines": "^10.0.0",
+        "stylelint-config-standard": "^34.0.0",
+        "stylelint-order": "^6.0.3",
+        "validate-branch-name": "^1.3.0",
+        "vite": "^4.4.9",
+        "vite-plugin-run": "^0.4.1",
+        "vite-plugin-static-copy": "^0.17.0"
+    },
+    "dependencies": {
+        "astronomy-engine": "^2.1.17"
+    },
+    "author": "MLNOP",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/MLNOP/Scenery/issues"
+    },
+    "homepage": "https://github.com/MLNOP/Scenery#readme"
+}

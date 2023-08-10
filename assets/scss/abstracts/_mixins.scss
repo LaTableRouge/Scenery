@@ -1,0 +1,239 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+
+/// Event wrapper
+/// @author Harry Roberts
+/// @param {Bool} $self [false] - Whether or not to include current selector
+/// @link https://twitter.com/csswizardry/status/478938530342006784 Original tweet from Harry Roberts
+@mixin on-event($self: false) {
+  @if $self {
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  } @else {
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  }
+}
+
+/// Make a context based selector a little more friendly
+/// @author Kitty Giraudel
+/// @param {String} $context
+@mixin when-inside($context) {
+  #{$context} & {
+    @content;
+  }
+}
+
+@mixin font-face($font-path, $font-name, $file-name, $weight: normal, $style: normal, $display: swap) {
+  @font-face {
+    font-family: quote($font-name);
+    src: url('#{$font-path}/#{$font-name}/#{$file-name}.ttf') format('truetype');
+    src:
+      url('#{$font-path}/#{$font-name}/#{$file-name}.eot') format('embedded-opentype'),
+      url('#{$font-path}/#{$font-name}/#{$file-name}.eotiefix') format('embedded-opentype'),
+      url('#{$font-path}/#{$font-name}/#{$file-name}.woff') format('woff'),
+      url('#{$font-path}/#{$font-name}/#{$file-name}.svg#{$font-name}') format('svg');
+    font-weight: $weight;
+    font-style: $style;
+    font-display: $display;
+  }
+}
+
+@mixin padding($top, $right, $bottom, $left) {
+  padding-top: $top;
+  padding-right: $right;
+  padding-bottom: $bottom;
+  padding-left: $left;
+}
+@mixin margin($top, $right, $bottom, $left) {
+  margin-top: $top;
+  margin-right: $right;
+  margin-bottom: $bottom;
+  margin-left: $left;
+}
+
+@mixin center($position) {
+  position: absolute;
+  @if $position == 'vertical' {
+    top: 50%;
+    transform: translateY(-50%);
+  } @else if $position == 'horizontal' {
+    left: 50%;
+    transform: translateX(-50%);
+  } @else if $position == 'both' {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@mixin text-shorten {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+
+@mixin hidden {
+  display: none;
+  visibility: hidden;
+}
+@mixin unselectable {
+  -webkit-touch-callout: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+@mixin gradient($start-color, $end-color, $orientation) {
+  background: $start-color;
+  @if $orientation == 'vertical' {
+    background: linear-gradient(to bottom, $start-color, $end-color);
+  } @else if $orientation == 'horizontal' {
+    background: linear-gradient(to right, $start-color, $end-color);
+  } @else {
+    background: radial-gradient(ellipse at center, $start-color, $end-color);
+  }
+}
+
+@mixin center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin triangle($color, $direction, $size: 6px, $position: absolute, $round: false) {
+  @include pseudo($pos: $position);
+  width: 0;
+  height: 0;
+  @if $round {
+    border-radius: 3px;
+  }
+  @if $direction == down {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+    margin-top: 0 - round($size / 2.5);
+  } @else if $direction == up {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+    margin-bottom: 0 - round($size / 2.5);
+  } @else if $direction == right {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+    margin-right: -$size;
+  } @else if $direction == left {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+    margin-left: -$size;
+  }
+}
+
+@mixin arrow($direction: down, $size: 5px, $color: #555) {
+  width: 0;
+  height: 0;
+  @if ($direction == left) {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+  } @else if ($direction == right) {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+  } @else if ($direction == down) {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+  } @else {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+  }
+}
+
+@mixin btn($color, $bg-color) {
+  padding: 8px 24px;
+  color: $color;
+  background-color: $bg-color;
+  text-decoration: none;
+  transition: opacity 0.2s ease-in-out;
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+    opacity: 0.8;
+  }
+}
+
+@mixin hidden {
+  display: none;
+  visibility: hidden;
+}
+
+@mixin fwAbsolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@mixin make($shape) {
+  height: 0;
+  width: 100%;
+  @if $shape == 'square' {
+    padding-bottom: 100%;
+  }
+  @if $shape == '16:9' {
+    padding-bottom: 56.25%;
+  }
+  @if $shape == '4:3' {
+    padding-bottom: 75%;
+  }
+  @if $shape == '3:4' {
+    padding-bottom: 125%;
+  }
+  @content;
+}
+
+@mixin icomoonFont {
+  // use !important to prevent issues with browser extensions that change fonts //
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  // Better Font Rendering //
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin inset($number) {
+  @supports (inset: $number) {
+    inset: $number;
+  }
+  @supports not (inset: $number) {
+    top: $number;
+    left: $number;
+    bottom: $number;
+    right: $number;
+  }
+}

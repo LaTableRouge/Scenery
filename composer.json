@@ -1,0 +1,11 @@
+{
+    "authors": [
+        {
+            "name": "VDIANA DEV",
+            "homepage": "https://mlnop.fr"
+        }
+    ],
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "v3.22.0"
+    }
+}

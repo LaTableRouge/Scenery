@@ -1,0 +1,36 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass keyframes.
+// -----------------------------------------------------------------------------
+@keyframes logoAnimation {
+  100% {
+    mask-position: bottom;
+  }
+}
+
+@keyframes twinkle {
+  25% {
+    opacity: 0;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes comet {
+  0%,
+  40% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  60%,
+  100% {
+    transform: translateX(-100vmax);
+    opacity: 0;
+  }
+}

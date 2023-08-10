@@ -1,0 +1,19 @@
+main {
+  canvas {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+  }
+
+  #celestials__layers {
+    transform: translateX(-50%);
+  }
+
+  #stars__layers {
+    transform: translateX(-50%);
+  }
+
+  #scenery__layers {
+    transform: translateX(-50%) scale(1.1);
+  }
+}

@@ -1,0 +1,9 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass animations.
+// -----------------------------------------------------------------------------
+
+@mixin text_mask_gradient() {
+  animation: var(--nomotion, logoAnimation) 5s infinite alternate;
+  mask-image: linear-gradient(to bottom, transparent, var(--color-white), transparent);
+  mask-size: 100% 300%;
+}

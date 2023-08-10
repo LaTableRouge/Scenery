@@ -1,0 +1,48 @@
+<svg
+    id='svg_favicon'
+    data-name='svg_favicon'
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 124.54 124.54'
+>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                filter: invert(100%);
+            }
+        }
+        .text{
+            fill: white;
+        }
+        .background{
+            fill: black;
+        }
+    </style>
+    <rect
+        class='background'
+        x='3'
+        y='3'
+        width='118.54'
+        height='118.54'
+        rx='11'
+    />
+    <path
+        class='text'
+        d='M32.41,86,17.55,46h3.31l7.78,20.93c2.23,6.06,4.74,12.74,5.6,16.12h.11c.86-3,3.61-10,5.84-15.9L48.25,46h3.26L36.07,86Z'
+        transform='translate(-4 -4.68)'
+    />
+    <path
+        class='text'
+        d='M54,86V80h5.28v6Z'
+        transform='translate(-4 -4.68)'
+    />
+    <path
+        class='text'
+        d='M65.61,46.6H81.24c11.48,0,19,7.56,19,19.22,0,11.49-7.29,20.2-19.35,20.2H65.61Zm8.52,32.54h6.4c7.55,0,10.89-5.62,10.89-13.3,0-6.44-3.12-12.35-10.84-12.35H74.13Z'
+        transform='translate(-4 -4.68)'
+    />
+    <path
+        class='text'
+        d='M105,86V76h8.79V86Z'
+        transform='translate(-4 -4.68)'
+    />
+</svg>

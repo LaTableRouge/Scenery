@@ -1,0 +1,37 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass root properties.
+// -----------------------------------------------------------------------------
+
+:root {
+  --color-0: #fff;
+  --color-rgb-0: 255, 255, 255;
+  --color-1: #eee;
+  --color-rgb-1: 238, 238, 238;
+  --color-2: #d2d2d2;
+  --color-rgb-2: 210, 210, 210;
+  --color-3: #c5c5c5;
+  --color-rgb-3: 197, 197, 197;
+  --color-4: #a2a2a2;
+  --color-rgb-4: 162, 162, 162;
+  --color-5: #b1b1b1;
+  --color-rgb-5: 177, 177, 177;
+  --color-6: #838383;
+  --color-rgb-6: 131, 131, 131;
+  --color-7: #737373;
+  --color-rgb-7: 115, 115, 115;
+  --color-8: #393939;
+  --color-rgb-8: 57, 57, 57;
+  --color-9: #1f1f1f;
+  --color-rgb-9: 31, 31, 31;
+  --color-10: #000;
+  --color-rgb-10: 0, 0, 0;
+
+  @each $color, $value in $colors {
+    --color-#{$color}: #{$value};
+    --color-rgb-#{$color}: #{toRGB($value)};
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    --nomotion: none;
+  }
+}

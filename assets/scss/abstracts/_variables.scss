@@ -1,0 +1,41 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+$pictures-path: '../img';
+
+//fonts
+$fonts-path: '../fonts';
+$icomoon-font-path: '#{$fonts-path}/icomoon/fonts';
+
+$fonts: (
+  'title': 'Acumin Pro',
+  'text': 'Montserrat'
+);
+
+$colors: (
+  'white': #ffffff,
+  'black': #000000
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1440px,
+  fhd: 1900px
+);
+
+$container-max-widths: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1440px,
+  fhd: 1900px
+);
+
+$logo_height: 130px;
