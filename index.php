@@ -21,9 +21,7 @@ require_once './assets/includes/common/vite.inc.php';
         content="width=device-width, initial-scale=1.0"
     >
 
-    <?php require_once './assets/includes/components/og.inc.php'; ?>
-
-    <title>Victor DIANA's scenery</title>
+    <title>The Scenery</title>
 
     <?php vite_enqueue_script('assets/js/app.js', true); ?>
 </head>
@@ -33,9 +31,9 @@ require_once './assets/includes/common/vite.inc.php';
 
         <?php require_once './assets/includes/components/canvas.php'; ?>
         <?php
-        if (!isset($_GET['no-controls'])) {
-            require_once './assets/includes/components/config.php';
-        }
+            if (!isset($_GET['no-controls'])) {
+                require_once './assets/includes/components/config.php';
+            }
 ?>
 
     </main>

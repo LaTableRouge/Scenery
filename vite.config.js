@@ -2,7 +2,6 @@ import autoprefixer from 'autoprefixer'
 import { defineConfig } from 'vite'
 import { run } from 'vite-plugin-run'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
-
 const { resolve } = require('path')
 const { stringReplace, viteStringReplace } = require('@mlnop/string-replace')
 
@@ -54,10 +53,55 @@ const entryFiles = [
         name: 'app',
         input: `${assetsPath}/scss`
       }
-    ],
-    php: [`${assetsPath}/includes`, 'index.php']
+    ]
   }
-].filter(Boolean)
+]
+
+/*
+ |--------------------------------------------------------------------------
+ | Beautify config (lint/prettier files)
+ |--------------------------------------------------------------------------
+ | {
+ |    js|php|scss: {
+ |     - Config
+ |     - Files array
+ |    }
+ | }
+ |
+ */
+const beautifyObject = {
+  js_lint: {
+    config: `npx eslint --config ${resolve(__dirname, '.eslintrc.js')} --no-error-on-unmatched-pattern --ignore-path ${resolve(__dirname, '.eslintignore')} --fix`,
+    files: [
+      ...Array.from(new Set(entryFiles.flatMap(element => element.scripts.flatMap(script => script.input)))),
+    ]
+  },
+  js_prettier: {
+    config: `npx prettier --config ${resolve(__dirname, '.prettierrc.js')} --no-error-on-unmatched-pattern --ignore-path ${resolve(__dirname, '.prettierignore')} --write`,
+    files: [
+      ...Array.from(new Set(entryFiles.flatMap(element => element.scripts.flatMap(script => script.input)))),
+    ]
+  },
+  scss_lint: {
+    config: `npx stylelint --config ${resolve(__dirname, '.stylelintrc.json')} --allow-empty-input --ignore-path ${resolve(__dirname, '.stylelintignore')} --fix`,
+    files: [
+      ...Array.from(new Set(entryFiles.flatMap(element => element.styles.flatMap(style => style.input)))),
+    ]
+  },
+  scss_prettier: {
+    config: `npx prettier --config ${resolve(__dirname, '.prettierrc.js')} --no-error-on-unmatched-pattern --ignore-path ${resolve(__dirname, '.prettierignore')} --write`,
+    files: [
+      ...Array.from(new Set(entryFiles.flatMap(element => element.styles.flatMap(style => style.input)))),
+    ]
+  },
+  php_lint: {
+    config: `${resolve(__dirname, 'vendor/bin/php-cs-fixer.bat')} fix -v --show-progress=dots --using-cache=no --config=${resolve(__dirname, '.php-cs-fixer.php')}`,
+    files: [
+      `${assetsPath}/includes`,
+      'index.php'
+    ]
+  }
+}
 
 /*
  |--------------------------------------------------------------------------
@@ -184,14 +228,6 @@ const buildFilesToEdit = [
  |--------------------------------------------------------------------------
  */
 
-const commandArray = {
-  js_lint: [],
-  js_prettier: [],
-  scss_lint: [],
-  scss_prettier: [],
-  php_lint: []
-}
-
 const entriesToCompile = []
 
 if (entryFiles.length) {
@@ -210,31 +246,6 @@ if (entryFiles.length) {
       */
       if (group.scripts?.length) {
         group.scripts.forEach(file => {
-          if (isProduction) {
-            // Javascript linter file path
-            if (chore === 'all' || chore === 'lint:js') {
-              const javascriptLinter = `npx eslint --config ${resolve(__dirname, '.eslintrc.js')} --ignore-path ${resolve(__dirname, '.eslintignore')} --fix ${file.input}/**/*.js`
-              if (!commandArray.js_lint.includes(javascriptLinter)) {
-                if (commandArray.php_lint.length) {
-                  commandArray.php_lint.push('&&')
-                }
-                commandArray.js_lint.push(javascriptLinter)
-              }
-            }
-
-            // Javascript prettier cmd
-            if (chore === 'all' || chore === 'prettier:js') {
-              const javascriptPrettier = `npx prettier --config ${resolve(__dirname, '.prettierrc.js')} --ignore-path ${resolve(__dirname, '.prettierignore')} --write ${file.input}/**/*.js`
-              if (!commandArray.js_prettier.includes(javascriptPrettier)) {
-                if (commandArray.php_lint.length) {
-                  commandArray.php_lint.push('&&')
-                }
-                commandArray.js_prettier.push(javascriptPrettier)
-              }
-            }
-          }
-
-          // Javascript compilation
           if (!entriesToCompile.includes(`${file.input}/${file.name}.js`)) {
             entriesToCompile.push(`${file.input}/${file.name}.js`)
           }
@@ -254,59 +265,9 @@ if (entryFiles.length) {
       */
       if (group.styles?.length) {
         group.styles.forEach(file => {
-          if (isProduction) {
-            // SCSS lint cmd
-            if (chore === 'all' || chore === 'lint:scss') {
-              const styleLintCommand = `npx stylelint --config ${resolve(__dirname, '.stylelintrc.json')}  --ignore-path ${resolve(__dirname, '.stylelintignore')} --fix ${file.input}/**/*.scss`
-              if (!commandArray.scss_lint.includes(styleLintCommand)) {
-                if (commandArray.php_lint.length) {
-                  commandArray.php_lint.push('&&')
-                }
-                commandArray.scss_lint.push(styleLintCommand)
-              }
-            }
-
-            // SCSS prettier cmd
-            if (chore === 'all' || chore === 'prettier:scss') {
-              const stylePrettier = `npx prettier --config ${resolve(__dirname, '.prettierrc.js')} --ignore-path ${resolve(__dirname, '.prettierignore')} --write ${file.input}/**/*.scss`
-              if (!commandArray.scss_prettier.includes(stylePrettier)) {
-                if (commandArray.php_lint.length) {
-                  commandArray.php_lint.push('&&')
-                }
-                commandArray.scss_prettier.push(stylePrettier)
-              }
-            }
-          }
-
-          // SCSS compilation
-          // if (chore === undefined || chore === 'all' || chore.includes('scss')) {
-          //   if (!entriesToCompile.includes(`${file.input}/${file.name}.scss`)) {
-          //     entriesToCompile.push(`${file.input}/${file.name}.scss`)
-          //   }
-          // }
-        })
-      }
-
-      /*
-      |--------------------------------------------------------------------------
-      | PHP Template Linter
-      |--------------------------------------------------------------------------
-      |
-      | Loop through the php array to lint them
-      |
-      | Add lint command
-      |
-      */
-      if (group.php?.length) {
-        group.php.forEach(file => {
-          // PHP lint cmd
-          if (chore === 'all' || chore === 'lint:php') {
-            const phpLintCommand = `${resolve(__dirname, 'vendor/bin/php-cs-fixer.bat')} fix -v --show-progress=dots --using-cache=no ${file} --config=${resolve(__dirname, '.php-cs-fixer.php')}`
-            if (!commandArray.php_lint.includes(phpLintCommand)) {
-              if (commandArray.php_lint.length) {
-                commandArray.php_lint.push('&&')
-              }
-              commandArray.php_lint.push(phpLintCommand)
+          if (chore === undefined || chore === 'all' || chore.includes('scss')) {
+            if (!entriesToCompile.includes(`${file.input}/${file.name}.scss`)) {
+              entriesToCompile.push(`${file.input}/${file.name}.scss`)
             }
           }
         })
@@ -362,33 +323,33 @@ export default defineConfig({
           chore === 'all' || chore === 'prettier:scss'
             ? {
               name: 'prettier:scss',
-              run: commandArray.scss_prettier,
+              run: [`${beautifyObject.scss_prettier.config} ${beautifyObject.scss_prettier.files.length > 1 ? `{${beautifyObject.scss_prettier.files.join(',')}}` : beautifyObject.scss_prettier.files.join(',')}/**/*.scss`],
             }
             : false,
           chore === 'all' || chore === 'lint:scss'
             ? {
               name: 'lint:scss',
-              run: commandArray.scss_lint,
+              run: [`${beautifyObject.scss_lint.config} ${beautifyObject.scss_lint.files.length > 1 ? `{${beautifyObject.scss_lint.files.join(',')}}` : beautifyObject.scss_lint.files.join(',')}/**/*.scss`],
             }
             : false,
           chore === 'all' || chore === 'prettier:js'
             ? {
               name: 'prettier:js',
-              run: commandArray.js_prettier,
+              run: [`${beautifyObject.js_prettier.config} ${beautifyObject.js_prettier.files.length > 1 ? `{${beautifyObject.js_prettier.files.join(',')}}` : beautifyObject.js_prettier.files.join(',')}/**/*.js`],
             }
             : false,
           chore === 'all' || chore === 'lint:js'
             ? {
               name: 'lint:js',
-              run: commandArray.js_lint,
+              run: [`${beautifyObject.js_lint.config} ${beautifyObject.js_lint.files.length > 1 ? `{${beautifyObject.js_lint.files.join(',')}}` : beautifyObject.js_lint.files.join(',')}/**/*.js`],
             }
             : false,
           chore === 'all' || chore === 'lint:php'
             ? {
               name: 'lint:php',
-              run: commandArray.php_lint,
+              run: [`${beautifyObject.php_lint.config} ${beautifyObject.php_lint.files.join(' ')}`],
             }
-            : false,
+            : false
         ].filter(Boolean)
       })
       : false,
@@ -406,6 +367,7 @@ export default defineConfig({
     minify: isProduction ? 'terser' : false,
     terserOptions: isProduction
       ? {
+        keep_fnames: true,
         compress: {
           pure_funcs: [
             'console.log',

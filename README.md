@@ -23,6 +23,12 @@ A repository showcasing a monotone illustration of a landscape, with a wide gras
 - Implemented in vanilla JavaScript, SCSS, and PHP (why PHP ? because I like it).
 - Compiled with ViteJS.
 
+## Upcoming Features
+
+- **Tilt Angle Adjustment**: The tilt angle for the planets is not right idk why.
+
+- **Accurate Stars' Positions**: We're also planning to incorporate accurate star positions based on location and time, adding a touch of realism to the night sky.
+
 ## Table of Contents
 
 - [Installation](#installation)
