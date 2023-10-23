@@ -50,12 +50,4 @@ window.addEventListener('DOMContentLoaded', (event) => {
       }
     })
   })
-
-  // Listener de messages en cas d'appel en iframe
-  window.addEventListener('message', (event) => {
-    if (event.origin.includes('.mlnop.fr') || event.origin === 'http://local.mlnop.fr') {
-      // Envoie le css au document parent
-      window.parent.postMessage(document.documentElement.style.cssText, '*')
-    }
-  })
 })
