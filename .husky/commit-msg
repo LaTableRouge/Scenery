@@ -1,0 +1,13 @@
+#!/bin/sh
+
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+blue='\033[0;34m'
+no_color='\033[0m'
+
+echo ""
+echo -e "${blue}(╭ರ_•́) Checking commit name (╭ರ_•́)${no_color}"
+echo ""
+
+npx --no-install commitlint --edit $1 # Check commit name

@@ -1,17 +1,15 @@
-# [The Scenery]([URL](https://mlnop.fr/scenery/))
+# [The Scenery](<[URL](https://scenery.mlnop.fr/)>)
 
-<img src="https://img.shields.io/badge/php-%5E8.0-blue">
-<img src="https://img.shields.io/badge/node-%3E%3D%2018-brightgreen">
+![Node](https://img.shields.io/badge/node-%3E%3D%2022-brightgreen)
+![PHP](https://img.shields.io/badge/php-%5E8-blue)
 
-<br>
+[![Monotone Landscape Illustration](./build/assets/img/preview.png)](https://scenery.mlnop.fr/)
 
-[![Monotone Landscape Illustration](https://mlnop.fr/portal/assets/img/scenery.webp)](https://mlnop.fr/scenery/)
+A repository showcasing a monotone illustration of a landscape, with a wide grass field, trees, mountains, and a small house.
+The illustration dynamically represents the solar system planets based on the user's time, date, and location.
+The color scheme of the website changes according to the time of day, and a night sky with stars appears during nightime hours.
 
-<br>
-
-A repository showcasing a monotone illustration of a landscape, with a wide grass field, trees, mountains, and a small house. The illustration dynamically represents the solar system planets based on the user's time, date, and location. The color scheme of the website changes according to the time of day, and a night sky with stars appears during nightime hours.
-
-[Live preview](https://mlnop.fr/scenery/)
+[Live preview](https://scenery.mlnop.fr/)
 
 ## Features
 
@@ -40,7 +38,7 @@ A repository showcasing a monotone illustration of a landscape, with a wide gras
 
 ## Installation
 
-1. Make sure you have PHP 8.0+ and Node.js 18 installed.
+1. Make sure you have PHP 8.0+ and Node.js 22 installed.
 2. Clone this repository: `git clone https://github.com/MLNOP/Scenery.git`
 3. Navigate to the project directory: `cd Scenery`
 4. Install Node.js dependencies: `npm install`
@@ -56,7 +54,7 @@ A repository showcasing a monotone illustration of a landscape, with a wide gras
 
 - [ViteJS](https://vitejs.dev/): Fast, opinionated web dev build tool.
 - [PHP 8.0+](https://www.php.net/): Server-side scripting language.
-- [Node.js 18+](https://nodejs.org/): JavaScript runtime.
+- [Node.js 22+](https://nodejs.org/): JavaScript runtime.
 - [Astronomy Engine](https://www.npmjs.com/package/astronomy-engine): NPM package for astronomy calculations.
 
 ## Credits

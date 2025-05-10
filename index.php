@@ -1,9 +1,9 @@
 <?php
-require_once './assets/includes/common/variables.inc.php';
-require_once './assets/includes/common/functions.inc.php';
+require_once './includes/common/variables.inc.php';
+require_once './includes/common/functions.inc.php';
 $env = get_env()['env'];
 
-require_once './assets/includes/common/vite.inc.php';
+require_once './includes/common/vite.inc.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,16 +23,16 @@ require_once './assets/includes/common/vite.inc.php';
 
     <title>The Scenery</title>
 
-    <?php vite_enqueue_script('assets/js/app.js', true); ?>
+    <?php vite_enqueue_script('src/scripts/app.js', true); ?>
 </head>
 
 <body>
     <main class="content-wrapper">
 
-        <?php require_once './assets/includes/components/canvas.php'; ?>
+        <?php require_once './includes/components/canvas.php'; ?>
         <?php
             if (!isset($_GET['no-controls'])) {
-                require_once './assets/includes/components/config.php';
+                require_once './includes/components/config.php';
             }
 ?>
 
