@@ -3,7 +3,7 @@
 ![Node](https://img.shields.io/badge/node-%3E%3D%2022-brightgreen)
 ![PHP](https://img.shields.io/badge/php-%5E8-blue)
 
-[![Monotone Landscape Illustration](./build/assets/img/preview.png)](https://scenery.mlnop.fr/)
+[![Monotone Landscape Illustration](https://scenery.mlnop.fr/build/assets/img/preview.png)](https://scenery.mlnop.fr/)
 
 A repository showcasing a monotone illustration of a landscape, with a wide grass field, trees, mountains, and a small house.
 The illustration dynamically represents the solar system planets based on the user's time, date, and location.
