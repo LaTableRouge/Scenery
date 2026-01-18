@@ -30,6 +30,7 @@ The color scheme of the website changes according to the time of day, and a nigh
 ## Table of Contents
 
 - [Installation](#installation)
+- [Docker Setup](#docker-setup)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
 - [Credits](#credits)
@@ -43,6 +44,74 @@ The color scheme of the website changes according to the time of day, and a nigh
 3. Navigate to the project directory: `cd Scenery`
 4. Install Node.js dependencies: `npm install`
 5. Install PHP dependencies: `composer install`
+
+## Docker Setup
+
+This project includes a Docker configuration for easy development and deployment. The setup uses PHP 8.3 with Apache and includes Node.js 24 for running Vite.
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
+- [Traefik](https://traefik.io/) setup (if using the provided Traefik labels)
+
+### Quick Start
+
+1. Create a `.env` file in the root directory:
+
+   ```bash
+   PROJECT_NAME=scenery
+   APP_FQDN=local.scenery.com
+   ```
+
+2. Add to your `/etc/hosts` file (macOS/Linux) or `C:\Windows\System32\drivers\etc\hosts` (Windows):
+
+   ```text
+   127.0.0.1 local.scenery.com
+   ```
+
+3. Build and start the container:
+
+   ```bash
+   docker compose build
+   docker compose up -d
+   ```
+
+4. Install dependencies inside the container:
+
+   ```bash
+   docker compose exec docker_app composer install
+   docker compose exec docker_app npm install
+   ```
+
+5. Access the application at `http://local.scenery.com` (or your configured `APP_FQDN`)
+
+### Development
+
+To run the Vite dev server inside the container:
+
+```bash
+docker compose exec docker_app npm run watch
+```
+
+The Vite dev server will be available on port `5173`.
+
+### Common Commands
+
+```bash
+# Start/Stop containers
+docker compose up -d
+docker compose down
+
+# Access container shell
+docker compose exec docker_app bash
+
+# View logs
+docker compose logs -f docker_app
+
+# Rebuild after changes
+docker compose build --no-cache
+docker compose up -d
+```
 
 ## Usage
 
