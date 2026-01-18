@@ -1,93 +1,146 @@
 <?php
 
-require_once 'variables.inc.php';
+/**
+ * Vite integration for custom PHP application
+ *
+ * @package Scenery
+ * @subpackage Vite
+ */
 
-function vite_fetch_asset_from_manifest($filePath) {
-    $returnedArray = [];
+declare(strict_types=1);
 
-    $fileName = basename($filePath);
-    $fileNameWithoutExtension = substr($fileName, 0, strrpos($fileName, '.'));
+class Vite {
+    private const VITE_SERVER = 'http://localhost:5173';
+    private const DIST_FOLDER = 'build';
+    private string $distPath;
 
-    // Use manifest json to know which asset to enqueue
-    if (file_exists(DIST_PATH . '/.vite/manifest.json')) {
-        $manifest = json_decode(file_get_contents(DIST_PATH . '/.vite/manifest.json'), true);
-
-        if (is_array($manifest)) {
-            $manifest_keys = array_keys($manifest);
-            $fileKey = null;
-            foreach ($manifest_keys as $key => $asset) {
-                if (strpos($asset, $fileName) !== false) {
-                    $fileKey = $asset;
-                    break;
-                }
-            }
-
-            if ($fileKey && isset($manifest[$fileKey])) {
-                $returnedArray = [
-                    'path' => DIST_PATH . "/{$manifest[$fileKey]['file']}",
-                ];
-
-                // In case of scss files included in Javascript
-                if (isset($manifest[$fileKey]['css']) && !empty($manifest[$fileKey]['css'])) {
-                    foreach ($manifest[$fileKey]['css'] as $css) {
-                        $returnedArray['css'][] = DIST_PATH . "/{$css}";
-                    }
-                }
-            }
-        }
+    public function __construct() {
+        $this->distPath = self::DIST_FOLDER;
     }
 
-    return $returnedArray;
-}
+    /**
+     * Fetch asset information from Vite manifest
+     *
+     * @param string $filePath Path to the file relative to src directory
+     * @return array{
+     *  path?: string,
+     *  css?: array<string>
+     * }
+     */
+    public function fetchAssetFromManifest(string $filePath): array {
+        $returnedArray = [];
 
-function vite_enqueue_style($filePath) {
-    if (defined('IS_VITE_DEVELOPMENT') && IS_VITE_DEVELOPMENT) {
-        /*
-        * ================================ Inject assets in DOM
-        * insert link tag for styles
-        */
-        echo '<link rel="stylesheet" href="' . VITE_SERVER . '/' . $filePath . '">';
-    } else {
-        /*
-        * ================================ Call assets like usual
-        */
-        $manifestFileInfos = vite_fetch_asset_from_manifest($filePath);
-        if (!empty($manifestFileInfos)) {
-            $path = $manifestFileInfos['path'];
-            echo '<link rel="stylesheet" type="text/css" href="' . $path . '">';
-        } else {
-            echo "No build file found for asset \"{$filePath}\"";
-            die();
+        $fileName = basename($filePath);
+        $manifestPath = $this->distPath . '/.vite/manifest.json';
+
+        if (!file_exists($manifestPath)) {
+            return $returnedArray;
         }
-    }
-}
 
-function vite_enqueue_script($filePath, $inHead = false) {
-    $defer = $inHead ? 'defer="true"' : '';
+        /** @var array<string, array{file: string, css?: array<string>}> $manifest */
+        $manifest = json_decode(file_get_contents($manifestPath), true);
 
-    if (defined('IS_VITE_DEVELOPMENT') && IS_VITE_DEVELOPMENT) {
-        /*
-        * ================================ Inject assets in DOM
-        * insert script tag for scripts
-        */
-        echo '<script type="module" crossorigin src="' . VITE_SERVER . '/' . $filePath . '"></script>';
-    } else {
-        /*
-        * ================================ Call assets like usual
-        */
-        $manifestFileInfos = vite_fetch_asset_from_manifest($filePath);
-        if (!empty($manifestFileInfos)) {
-            if (isset($manifestFileInfos['css'])) {
-                foreach ($manifestFileInfos['css'] as $cssPath) {
-                    echo '<link rel="stylesheet" type="text/css" href="' . $cssPath . '">';
+        if (!is_array($manifest)) {
+            return $returnedArray;
+        }
+
+        $fileKey = array_reduce(
+            array_keys($manifest),
+            fn(?string $carry, string $asset) => str_contains($asset, $fileName) ? $asset : $carry,
+            null
+        );
+
+        if ($fileKey && isset($manifest[$fileKey])) {
+            $returnedArray = [
+                'path' => $this->distPath . "/{$manifest[$fileKey]['file']}",
+            ];
+
+            if (isset($manifest[$fileKey]['css']) && !empty($manifest[$fileKey]['css'])) {
+                foreach ($manifest[$fileKey]['css'] as $css) {
+                    $returnedArray['css'][] = $this->distPath . "/{$css}";
                 }
             }
-
-            $path = $manifestFileInfos['path'];
-            echo '<script ' . $defer . ' type="text/javascript" src="' . $path . '"></script>';
-        } else {
-            echo "No build file found for asset \"{$filePath}\"";
-            die();
         }
+
+        return $returnedArray;
+    }
+
+    /**
+     * Enqueue style assets
+     *
+     * @param string $filePath Path to the file relative to src directory
+     * @return void
+     */
+    public function enqueueStyle(string $filePath): void {
+        $isDev = defined('IS_VITE_DEVELOPMENT') && IS_VITE_DEVELOPMENT;
+        $viteServer = defined('VITE_SERVER') ? VITE_SERVER : self::VITE_SERVER;
+
+        if ($isDev) {
+            printf(
+                '<link rel="stylesheet" href="%s">',
+                htmlspecialchars($viteServer . '/' . $filePath, ENT_QUOTES, 'UTF-8')
+            );
+
+            return;
+        }
+
+        $manifestFileInfos = $this->fetchAssetFromManifest($filePath);
+        if (empty($manifestFileInfos)) {
+            printf('No build file found for asset "%s"', htmlspecialchars($filePath, ENT_QUOTES, 'UTF-8'));
+
+            return;
+        }
+
+        $path = $manifestFileInfos['path'];
+        printf(
+            '<link rel="stylesheet" type="text/css" href="%s">',
+            htmlspecialchars($path, ENT_QUOTES, 'UTF-8')
+        );
+    }
+
+    /**
+     * Enqueue script assets
+     *
+     * @param string $filePath Path to the file relative to src directory
+     * @param bool $inHead Whether to add defer attribute (for head placement)
+     * @return void
+     */
+    public function enqueueScript(string $filePath, bool $inHead = false): void {
+        $isDev = defined('IS_VITE_DEVELOPMENT') && IS_VITE_DEVELOPMENT;
+        $viteServer = defined('VITE_SERVER') ? VITE_SERVER : self::VITE_SERVER;
+        $defer = $inHead ? ' defer="true"' : '';
+
+        if ($isDev) {
+            printf(
+                '<script type="module" crossorigin src="%s"></script>',
+                htmlspecialchars($viteServer . '/' . $filePath, ENT_QUOTES, 'UTF-8')
+            );
+
+            return;
+        }
+
+        $manifestFileInfos = $this->fetchAssetFromManifest($filePath);
+        if (empty($manifestFileInfos)) {
+            printf('No build file found for asset "%s"', htmlspecialchars($filePath, ENT_QUOTES, 'UTF-8'));
+
+            return;
+        }
+
+        // Enqueue associated CSS files first
+        if (isset($manifestFileInfos['css'])) {
+            foreach ($manifestFileInfos['css'] as $cssPath) {
+                printf(
+                    '<link rel="stylesheet" type="text/css" href="%s">',
+                    htmlspecialchars($cssPath, ENT_QUOTES, 'UTF-8')
+                );
+            }
+        }
+
+        $path = $manifestFileInfos['path'];
+        printf(
+            '<script%s type="text/javascript" src="%s"></script>',
+            $defer,
+            htmlspecialchars($path, ENT_QUOTES, 'UTF-8')
+        );
     }
 }
