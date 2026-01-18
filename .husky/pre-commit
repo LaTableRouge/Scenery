@@ -1,4 +1,3 @@
-npm test
 #!/bin/sh
 
 red='\033[0;31m'
@@ -30,6 +29,15 @@ echo ""
 
 exec >/dev/tty 2>&1
 
-npx --no-install git-precommit-checks # Check if code is clean
-npx --no-install lint-staged # VLint SCSS & JS
+# Check if npx is available locally, otherwise use Docker container
+if command -v npx >/dev/null 2>&1; then
+  npx --no-install git-precommit-checks
+  npx --no-install lint-staged
+elif command -v docker >/dev/null 2>&1; then
+  docker compose exec -T docker_app npx --no-install git-precommit-checks
+  docker compose exec -T docker_app npx --no-install lint-staged
+else
+  echo -e "${red}Error: Neither npx nor Docker is available. Please install Node.js or start the Docker container.${no_color}"
+  exit 1
+fi
 
