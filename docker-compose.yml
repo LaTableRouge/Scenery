@@ -1,0 +1,25 @@
+services:
+  docker_app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    env_file: .env
+    volumes:
+      - .:/app
+      - ./docker/conf/vhost.conf:/etc/apache2/sites-available/000-default.conf
+      - ./docker/conf/apache.conf:/etc/apache2/conf-available/z-app.conf
+    labels:
+      - 'traefik.http.routers.${PROJECT_NAME}.rule=Host(`${APP_FQDN}`)'
+      - 'traefik.http.routers.${PROJECT_NAME}.entrypoints=http'
+      - 'traefik.http.services.${PROJECT_NAME}.loadbalancer.server.port=80'
+    ports:
+      - '5173:5173' # Expose Vite dev server port
+    networks:
+      - traefik
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+  traefik:
+    external: true

@@ -1,21 +1,21 @@
 @charset "UTF-8";
 
 // 1. Configuration and helpers
-@import 'abstracts/variables';
-@import 'abstracts/functions';
-@import 'abstracts/mixins';
-@import 'abstracts/animations';
-@import 'abstracts/keyframes';
-@import 'abstracts/responsive';
+@use 'abstracts/variables';
+@use 'abstracts/functions';
+@use 'abstracts/mixins';
+@use 'abstracts/animations';
+@use 'abstracts/keyframes';
+@use 'abstracts/responsive';
 
 // 2. Vendors
-@import 'vendors/normalize';
+@use 'vendors/normalize';
 
 // 3. Base stuff
-@import 'base/root';
-@import 'base/base';
-@import 'base/typography';
+@use 'base/root';
+@use 'base/base';
+@use 'base/typography';
 
 // 4. Components
-@import './components/canvas';
-@import './components/config';
+@use 'components/canvas';
+@use 'components/config';

@@ -174,5 +174,5 @@ fabric.properties
 /node_modules
 /vendor
 /build
-
+.env
 /assets/img/minified

@@ -1,422 +1,163 @@
 {
-  "name": "scenery",
-  "version": "2.0.0",
-  "description": "## VHosts",
-  "main": "vite.config.js",
-  "scripts": {
-    "watch": "vite",
-    "build": "vite build",
-    "lint:scss": "npx stylelint --allow-empty-input --fix src/styles/**/*.scss",
-    "prettier:scss": "npx prettier --no-error-on-unmatched-pattern --write src/styles/**/*.scss",
-    "lint:js": "npx eslint --no-error-on-unmatched-pattern --fix vite.config.mjs src/scripts/**/*.{js,jsx}",
-    "prettier:js": "npx prettier --no-error-on-unmatched-pattern --write vite.config.mjs src/scripts/**/*.{js,jsx}",
-    "lint:md": "npx markdownlint-cli2 --fix README.md",
-    "prettier:md": "npx prettier --no-error-on-unmatched-pattern --write README.md",
-    "lint:yml": "npx eslint --no-error-on-unmatched-pattern --fix .github/**/*.{yml,yaml}",
-    "prettier:yml": "npx prettier --no-error-on-unmatched-pattern --write .github/**/*.{yml,yaml}",
-    "lint:json": "npx eslint --no-error-on-unmatched-pattern --fix {package,package-lock,composer}.json",
-    "prettier:json": "npx prettier --no-error-on-unmatched-pattern --write {package,package-lock,composer}.json",
-    "beautify:all": "npm run prettier:scss && npm run lint:scss && npm run prettier:js && npm run lint:js && npm run prettier:md && npm run lint:md && npm run prettier:yml && npm run lint:yml && npm run prettier:json && npm run lint:json && composer prettier:php && composer lint:php",
-    "prepare": "husky install && composer install && npm run build && npm run build:react-blocks"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MLNOP/Scenery.git"
-  },
-  "keywords": [
-    "scenery",
-    "astronomy-engine"
-  ],
-  "author": "MLNOP",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/MLNOP/Scenery/issues"
-  },
-  "homepage": "https://github.com/MLNOP/Scenery#readme",
-  "devDependencies": {
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
-    "@mlnop/string-replace": "^2.0.0",
-    "@mlnop/vite-plugin-sass-glob-import": "^6.0.0",
-    "@wordpress/scripts": "^30.15.0",
-    "autoprefixer": "^10.4.21",
-    "browserslist": "^4.24.4",
-    "eslint": "^8.57.1",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-json": "^4.0.1",
-    "eslint-plugin-n": "^16.2.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.34.3",
-    "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-sort-destructure-keys": "^2.0.0",
-    "eslint-plugin-unused-imports": "^3.0.0",
-    "eslint-plugin-yml": "^1.18.0",
-    "git-precommit-checks": "^3.1.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.5.1",
-    "markdownlint-cli2": "^0.17.2",
-    "prettier": "^3.5.3",
-    "sass": "^1.87.0",
-    "sass-loader": "^16.0.5",
-    "stylelint": "^16.19.1",
-    "stylelint-config-property-sort-order-smacss": "^10.0.0",
-    "stylelint-config-sass-guidelines": "^12.1.0",
-    "stylelint-config-standard": "^38.0.0",
-    "stylelint-order": "^7.0.0",
-    "validate-branch-name": "^1.3.2",
-    "vite": "^6.3.4",
-    "vite-plugin-static-copy": "^2.3.1"
-  },
-  "lint-staged": {
-    "**/*.md": [
-      "npx prettier --no-error-on-unmatched-pattern --write",
-      "npx markdownlint-cli2 --fix"
-    ],
-    "**/*.{yml,yaml}": [
-      "npx prettier --no-error-on-unmatched-pattern --write",
-      "npx eslint --no-error-on-unmatched-pattern --fix"
-    ],
-    "**/*.json": [
-      "npx prettier --no-error-on-unmatched-pattern --write",
-      "npx eslint --no-error-on-unmatched-pattern --fix"
-    ],
-    "**/*.php": [
-      "composer lint-staged:php"
-    ],
-    "**/*.scss": [
-      "npx stylelint --allow-empty-input --fix",
-      "npx prettier --no-error-on-unmatched-pattern --write",
-      "npx stylelint --allow-empty-input --fix"
-    ],
-    "**/*.{mjs,js,jsx,ts,tsx}": [
-      "npx prettier --no-error-on-unmatched-pattern --write",
-      "npx eslint --no-error-on-unmatched-pattern --fix"
-    ]
-  },
-  "validate-branch-name": {
-    "pattern": "^(main|master|srv/dev|srv/pre)$|^(feature|fix|hotfix|experimental|minor|major|release)/.+$",
-    "errorMsg": "🤨 The branch you're trying to push doesn't respect our conventions, you can rename it with `git branch -m <current-name> <new-name>`"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
-    "rules": {
-      "type-enum": [
-        2,
-        "always",
-        [
-          "build",
-          "chore",
-          "docs",
-          "feat",
-          "fix",
-          "refactor",
-          "revert",
-          "style",
-          "wordpress",
-          "wp"
-        ]
-      ]
-    }
-  },
-  "git-precommit-checks": {
-    "display": {
-      "notifications": true,
-      "offendingContent": true,
-      "rulesSummary": false,
-      "shortStats": true,
-      "verbose": false
-    },
-    "rules": [
-      {
-        "message": "Have you forgotten to finish some tasks?",
-        "nonBlocking": true,
-        "regex": "/(?:FIXME|TODO)/"
-      },
-      {
-        "message": "You have conflict markers lying around",
-        "regex": "/^[<>|=]{4,}/m"
-      },
-      {
-        "message": "Commit stopped: you've entered information that must not be committed!",
-        "regex": "/do not commit/i"
-      },
-      {
-        "filter": "/\\.js$/",
-        "message": "🤔 Hum! Didn't you forget to remove from \"console.log(...)\"?",
-        "nonBlocking": true,
-        "regex": "/^\\s*console\\.log/"
-      }
-    ]
-  },
-  "browserslist": [
-    "last 2 version"
-  ],
-  "prettier": {
-    "trailingComma": "none",
-    "printWidth": 100000,
-    "tabWidth": 2,
-    "singleQuote": true,
-    "semi": false,
-    "bracketSpacing": true
-  },
-  "prettierIgnore": [
-    "build/"
-  ],
-  "stylelint": {
-    "extends": [
-      "stylelint-config-property-sort-order-smacss",
-      "stylelint-config-sass-guidelines"
-    ],
-    "plugins": [
-      "stylelint-order"
-    ],
-    "rules": {
-      "at-rule-empty-line-before": [
-        "always",
-        {
-          "except": [
-            "blockless-after-same-name-blockless"
-          ],
-          "ignore": [
-            "after-comment",
-            "first-nested"
-          ],
-          "ignoreAtRules": [
-            "else",
-            "if"
-          ],
-          "severity": "warning"
-        }
-      ],
-      "block-no-empty": true,
-      "color-named": null,
-      "custom-property-empty-line-before": [
-        "always",
-        {
-          "except": [
-            "after-custom-property"
-          ],
-          "ignore": [
-            "after-comment",
-            "first-nested",
-            "inside-single-line-block"
-          ],
-          "severity": "warning"
-        }
-      ],
-      "declaration-empty-line-before": [
-        "always",
-        {
-          "except": [
-            "after-declaration"
-          ],
-          "ignore": [
-            "after-comment",
-            "first-nested",
-            "inside-single-line-block"
-          ],
-          "severity": "warning"
-        }
-      ],
-      "declaration-no-important": [
-        true,
-        {
-          "message": "Do you really need this to be important ? 🤔",
-          "severity": "warning"
-        }
-      ],
-      "declaration-property-value-disallowed-list": null,
-      "max-nesting-depth": null,
-      "order/properties-alphabetical-order": null,
-      "order/order": [
-        "dollar-variables",
-        "custom-properties",
-        "declarations",
-        "at-rules",
-        "rules"
-      ],
-      "property-no-unknown": null,
-      "property-no-vendor-prefix": null,
-      "rule-empty-line-before": [
-        "always",
-        {
-          "ignore": [
-            "after-comment",
-            "first-nested"
-          ],
-          "severity": "warning"
-        }
-      ],
-      "scss/at-extend-no-missing-placeholder": null,
-      "scss/at-function-pattern": null,
-      "scss/at-import-partial-extension-blacklist": null,
-      "scss/at-mixin-pattern": null,
-      "scss/dollar-variable-pattern": null,
-      "scss/no-global-function-names": null,
-      "scss/percent-placeholder-pattern": null,
-      "scss/selector-no-redundant-nesting-selector": null,
-      "selector-class-pattern": null,
-      "selector-disallowed-list": [
-        "/\\*/",
-        {
-          "message": "The universal selector (*) is known to be slow 🦥",
-          "severity": "warning"
-        }
-      ],
-      "selector-max-compound-selectors": null,
-      "selector-max-id": null,
-      "selector-no-qualifying-type": null,
-      "shorthand-property-no-redundant-values": null,
-      "value-no-vendor-prefix": null
-    },
-    "ignoreFiles": [
-      "src/styles/abstracts/**/*.scss",
-      "src/styles/abstracts/**/*.scss"
-    ]
-  },
-  "stylelintIgnore": [
-    "src/styles/abstracts/**/*.scss",
-    "src/styles/abstracts/**/*.scss"
-  ],
-  "tsconfig": {
-    "compilerOptions": {
-      "target": "ES2015",
-      "module": "ESNext",
-      "moduleResolution": "node",
-      "strict": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-      "jsx": "react",
-      "baseUrl": ".",
-      "paths": {
-        "@/*": [
-          "src/*"
-        ]
-      }
-    },
-    "include": [
-      "**/*.ts",
-      "**/*.tsx"
-    ],
-    "exclude": [
-      "node_modules"
-    ]
-  },
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "es2021": true
-    },
-    "extends": [
-      "standard",
-      "eslint:recommended",
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:yml/recommended",
-      "plugin:json/recommended-legacy"
-    ],
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
-    },
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true,
-        "ts": true,
-        "tsx": true
-      },
-      "sourceType": "module"
-    },
-    "globals": {
-      "wp": true,
-      "jQuery": true,
-      "block_params": true,
-      "wpchildparams": true
-    },
-    "plugins": [
-      "react",
-      "unused-imports",
-      "simple-import-sort",
-      "sort-destructure-keys",
-      "@typescript-eslint"
-    ],
-    "rules": {
-      "indent": [
-        "warn",
-        "tab",
-        {
-          "ObjectExpression": 1
-        }
-      ],
-      "no-tabs": [
-        "warn",
-        {
-          "allowIndentationTabs": true
-        }
-      ],
-      "object-shorthand": 0,
-      "space-before-function-paren": "off",
-      "comma-dangle": [
-        "error",
-        "only-multiline"
-      ],
-      "generator-star-spacing": [
-        "error",
-        {
-          "before": false,
-          "after": true
-        }
-      ],
-      "unused-imports/no-unused-imports": "warn",
-      "simple-import-sort/imports": "error",
-      "simple-import-sort/exports": "error",
-      "no-console": "warn",
-      "operator-linebreak": [
-        "error",
-        "before"
-      ],
-      "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off",
-      "react/jsx-sort-props": [
-        1,
-        {
-          "ignoreCase": true,
-          "callbacksLast": true,
-          "shorthandFirst": true,
-          "multiline": "ignore",
-          "reservedFirst": true
-        }
-      ],
-      "sort-destructure-keys/sort-destructure-keys": [
-        2,
-        {
-          "caseSensitive": false
-        }
-      ],
-      "yml/no-empty-mapping-value": "off"
-    }
-  },
-  "eslintIgnore": [
-    "build/"
-  ],
-  "markdownlint-cli2": {
-    "config": {
-      "default": true,
-      "MD013": {
-        "line_length": 200
-      }
-    }
-  },
-  "dependencies": {
-    "astronomy-engine": "^2.1.17"
-  }
+	"name": "scenery",
+	"version": "2.0.0",
+	"description": "## VHosts",
+	"main": "vite.config.js",
+	"scripts": {
+		"prepare": "husky",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"watch": "vite",
+		"build": "vite build",
+		"lint:scss": "npx stylelint --config linters/stylelint.config.js --ignore-path linters/.stylelintignore --allow-empty-input --fix src/styles/**/*.scss",
+		"prettier:scss": "npx prettier --config linters/prettier.config.js --ignore-path linters/.prettierignore --no-error-on-unmatched-pattern --write src/styles/**/*.scss",
+		"lint:js": "npx eslint --config linters/eslint.config.js --no-error-on-unmatched-pattern --fix src/scripts/**/*.js",
+		"prettier:js": "npx prettier --config linters/prettier.config.js --ignore-path linters/.prettierignore --no-error-on-unmatched-pattern --write src/scripts/**/*.js",
+		"prettier:json": "npx prettier --config linters/prettier.config.js --ignore-path linters/.prettierignore --no-error-on-unmatched-pattern --write {composer.json,package.json}",
+		"lint:md": "npx markdownlint-cli2 --config linters/.markdownlint.json --fix */**/*.md !**/node_modules/** !**/vendor/**",
+		"lint:php": "composer run lint:php",
+		"prettier:php": "composer run prettier:php",
+		"beautify:all": "npm run prettier:scss && npm run lint:scss && npm run prettier:js && npm run lint:js && npm run lint:md && npm run prettier:json && npm run lint:md && npm run prettier:php && npm run lint:php"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MLNOP/Scenery.git"
+	},
+	"keywords": [
+		"scenery",
+		"astronomy-engine"
+	],
+	"author": "MLNOP",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/MLNOP/Scenery/issues"
+	},
+	"homepage": "https://github.com/MLNOP/Scenery#readme",
+	"devDependencies": {
+		"@babel/runtime": "^7.28.6",
+		"@commitlint/cli": "^20.3.1",
+		"@commitlint/config-conventional": "^20.3.1",
+		"@mlnop/string-replace": "^2.0.0",
+		"@mlnop/vite-plugin-sass-glob-import": "^6.1.0",
+		"autoprefixer": "^10.4.23",
+		"browserslist": "^4.28.1",
+		"copy-webpack-plugin": "^13.0.1",
+		"eslint": "^9.39.2",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-import": "^2.32.0",
+		"eslint-plugin-n": "^17.23.2",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-prettier": "^5.5.5",
+		"eslint-plugin-promise": "^7.2.1",
+		"eslint-plugin-react": "^7.37.5",
+		"eslint-plugin-simple-import-sort": "^12.1.1",
+		"eslint-plugin-sort-destructure-keys": "^2.0.0",
+		"eslint-plugin-unused-imports": "^4.3.0",
+		"eslint-plugin-yml": "^2.0.0",
+		"git-precommit-checks": "^3.1.0",
+		"globals": "^17.0.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.2.7",
+		"markdownlint-cli2": "^0.20.0",
+		"prettier": "^3.8.0",
+		"sass": "^1.97.2",
+		"sass-loader": "^16.0.6",
+		"stylelint": "^16.19.1",
+		"stylelint-config-property-sort-order-smacss": "^10.0.0",
+		"stylelint-config-sass-guidelines": "^12.1.0",
+		"stylelint-config-standard": "^38.0.0",
+		"stylelint-order": "^7.0.1",
+		"validate-branch-name": "^1.3.2",
+		"vite": "^7.3.1",
+		"vite-plugin-static-copy": "^3.1.4"
+	},
+	"dependencies": {
+		"astronomy-engine": "^2.1.19"
+	},
+	"lint-staged": {
+		"**/*.md": [
+			"npx prettier --config linters/prettier.config.js --ignore-path linters/.prettierignore --no-error-on-unmatched-pattern --write",
+			"npx markdownlint-cli2 --config linters/.markdownlint.json --fix"
+		],
+		"**/*.{yml,yaml}": [
+			"npx prettier --config linters/prettier.config.js --ignore-path linters/.prettierignore --no-error-on-unmatched-pattern --write"
+		],
+		"**/*.json": [
+			"npx prettier --config linters/prettier.config.js --ignore-path linters/.prettierignore --no-error-on-unmatched-pattern --write"
+		],
+		"**/*.twig": [
+			"composer lint-staged:twig"
+		],
+		"**/*.php": [
+			"composer lint-staged:php"
+		],
+		"**/*.scss": [
+			"npx stylelint --config linters/stylelint.config.js --ignore-path linters/.stylelintignore --allow-empty-input --fix",
+			"npx prettier --config linters/prettier.config.js --ignore-path linters/.prettierignore --no-error-on-unmatched-pattern --write",
+			"npx stylelint --config linters/stylelint.config.js --ignore-path linters/.stylelintignore --allow-empty-input --fix"
+		],
+		"**/*.{mjs,js,jsx,ts,tsx}": [
+			"npx prettier --config linters/prettier.config.js --ignore-path linters/.prettierignore --no-error-on-unmatched-pattern --write",
+			"npx eslint --config linters/eslint.config.js --no-error-on-unmatched-pattern --fix"
+		]
+	},
+	"validate-branch-name": {
+		"pattern": "^(main|master|srv/dev|srv/pre)$|^(feature|fix|hotfix|experimental|minor|major|release)/.+$",
+		"errorMsg": "🤨 The branch you're trying to push doesn't respect our conventions, you can rename it with `git branch -m <current-name> <new-name>`"
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		],
+		"rules": {
+			"type-enum": [
+				2,
+				"always",
+				[
+					"build",
+					"chore",
+					"docs",
+					"feat",
+					"fix",
+					"refactor",
+					"revert",
+					"style",
+					"wordpress",
+					"wp"
+				]
+			]
+		}
+	},
+	"git-precommit-checks": {
+		"display": {
+			"notifications": true,
+			"offendingContent": true,
+			"rulesSummary": false,
+			"shortStats": true,
+			"verbose": false
+		},
+		"rules": [
+			{
+				"message": "Have you forgotten to finish some tasks?",
+				"nonBlocking": true,
+				"regex": "/(?:FIXME|TODO)/"
+			},
+			{
+				"message": "You have conflict markers lying around",
+				"regex": "/^[<>|=]{4,}/m"
+			},
+			{
+				"message": "Commit stopped: you've entered information that must not be committed!",
+				"regex": "/do not commit/i"
+			},
+			{
+				"filter": "/\\.js$/",
+				"message": "🤔 Hum! Didn't you forget to remove from \"console.log(...)\"?",
+				"nonBlocking": true,
+				"regex": "/^\\s*console\\.log/"
+			}
+		]
+	},
+	"browserslist": [
+		"last 2 version"
+	]
 }

@@ -1,3 +1,5 @@
+@use "sass:math";
+@use "sass:string";
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass mixins.
 // -----------------------------------------------------------------------------
@@ -34,7 +36,7 @@
 
 @mixin font-face($font-path, $font-name, $file-name, $weight: normal, $style: normal, $display: swap) {
   @font-face {
-    font-family: quote($font-name);
+    font-family: string.quote($font-name);
     src: url('#{$font-path}/#{$font-name}/#{$file-name}.ttf') format('truetype');
     src:
       url('#{$font-path}/#{$font-name}/#{$file-name}.eot') format('embedded-opentype'),
@@ -125,12 +127,12 @@
     border-left: $size solid transparent;
     border-right: $size solid transparent;
     border-top: $size solid $color;
-    margin-top: 0 - round($size / 2.5);
+    margin-top: 0 - math.round($size / 2.5);
   } @else if $direction == up {
     border-left: $size solid transparent;
     border-right: $size solid transparent;
     border-bottom: $size solid $color;
-    margin-bottom: 0 - round($size / 2.5);
+    margin-bottom: 0 - math.round($size / 2.5);
   } @else if $direction == right {
     border-top: $size solid transparent;
     border-bottom: $size solid transparent;

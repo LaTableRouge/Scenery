@@ -247,16 +247,28 @@ export default defineConfig(async ({ command, mode }) => {
 		},
 
 		server: {
-			cors: true,
-			strictPort: true,
+			host: '0.0.0.0', // Required for Docker - listen on all interfaces
 			port: 5173,
+			strictPort: true,
+			cors: true,
 			https: false,
 			open: false,
-			hmr: {
-				host: 'localhost'
-			},
+			// Allow all hosts in development (Docker-friendly)
+			// In production, you should restrict this
+			allowedHosts: isProduction ? [] : true,
+			hmr: (() => {
+				// Detect if we're in Docker or behind a proxy
+				const isDocker = process.env.DOCKER === 'true' || process.env.VITE_DOCKER === 'true'
+				const hmrHost = process.env.VITE_HMR_HOST || (isDocker ? 'localhost' : 'localhost')
+				const hmrPort = process.env.VITE_HMR_PORT ? parseInt(process.env.VITE_HMR_PORT, 10) : 5173
+
+				return {
+					host: hmrHost,
+					port: hmrPort
+				}
+			})(),
 			watch: {
-				usePolling: true
+				usePolling: true // Required for Docker file watching
 			}
 		},
 

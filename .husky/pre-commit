@@ -1,3 +1,4 @@
+npm test
 #!/bin/sh
 
 red='\033[0;31m'

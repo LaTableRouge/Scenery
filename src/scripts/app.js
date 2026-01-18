@@ -50,4 +50,22 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		})
 	})
+
+	// Listener de messages en cas d'appel en iframe
+	window.addEventListener('message', (event) => {
+		if (
+			event.origin.includes('.mlnop.fr')
+			|| event.origin === 'http://local.mlnop.fr'
+			|| event.origin === 'http://local.library.fr'
+			|| event.origin === 'https://latablegrise.fr'
+			|| event.origin === 'https://latableorange.fr'
+			|| event.origin === 'https://latablerouge.ninja'
+			|| event.origin === 'https://latablebleue.fr'
+		) {
+			console.log('event.origin', event.origin)
+			console.log('ayayayayayayaya')
+			// Envoie le css au document parent
+			window.parent.postMessage(document.documentElement.style.cssText, '*')
+		}
+	})
 })

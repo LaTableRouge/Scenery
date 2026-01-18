@@ -1,0 +1,6 @@
+**/abstracts/**/*.scss
+**/vendors/**/*.scss
+**/static/*
+**/build/*
+**/dist/*
+**/fonts/*

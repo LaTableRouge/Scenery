@@ -1,9 +1,7 @@
 <?php
 require_once './includes/common/variables.inc.php';
-require_once './includes/common/functions.inc.php';
-$env = get_env()['env'];
-
 require_once './includes/common/vite.inc.php';
+$vite = new Vite();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +21,7 @@ require_once './includes/common/vite.inc.php';
 
     <title>The Scenery</title>
 
-    <?php vite_enqueue_script('src/scripts/app.js', true); ?>
+    <?php $vite->enqueueScript('src/scripts/app.js', true); ?>
 </head>
 
 <body>
