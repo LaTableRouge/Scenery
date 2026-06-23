@@ -1,21 +1,8 @@
 @charset "UTF-8";
 
-// 1. Configuration and helpers
-@use 'abstracts/variables';
-@use 'abstracts/functions';
-@use 'abstracts/mixins';
-@use 'abstracts/animations';
-@use 'abstracts/keyframes';
-@use 'abstracts/responsive';
-
-// 2. Vendors
 @use 'vendors/normalize';
-
-// 3. Base stuff
 @use 'base/root';
 @use 'base/base';
 @use 'base/typography';
-
-// 4. Components
 @use 'components/canvas';
 @use 'components/config';

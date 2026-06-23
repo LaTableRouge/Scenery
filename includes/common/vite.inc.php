@@ -37,12 +37,14 @@ class Vite {
             return $returnedArray;
         }
 
-        /** @var array<string, array{file: string, css?: array<string>}> $manifest */
-        $manifest = json_decode(file_get_contents($manifestPath), true);
+        $decoded = json_decode(file_get_contents($manifestPath), true);
 
-        if (!is_array($manifest)) {
+        if (!is_array($decoded)) {
             return $returnedArray;
         }
+
+        /** @var array<string, array{file: string, css?: array<string>}> $manifest */
+        $manifest = $decoded;
 
         $fileKey = array_reduce(
             array_keys($manifest),

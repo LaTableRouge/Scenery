@@ -1,20 +1,9 @@
-// -----------------------------------------------------------------------------
-// This file contains very basic styles.
-// -----------------------------------------------------------------------------
-
-//
-// Make all elements from the DOM inherit from the parent box-sizing
-// Since `*` has a specificity of 0, it does not override the `html` value
-// making all elements inheriting from the root box-sizing value
-// See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
-//
 *,
 *::before,
 *::after {
   box-sizing: inherit;
 }
 
-//Set up a decent box model on the root element
 html {
   box-sizing: border-box;
   scroll-behavior: var(--nomotion, smooth);
@@ -25,10 +14,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
   min-height: 100vh;
-  margin-right: auto;
-  margin-left: auto;
+  margin-inline: auto;
   overflow-x: hidden;
   background-color: var(--color-0);
   color: var(--color-white);
@@ -57,6 +44,5 @@ main {
   clip: rect(1px, 1px, 1px, 1px);
   border: 0;
   word-wrap: normal !important;
-  -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
 }

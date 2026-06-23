@@ -1,0 +1,15 @@
+---
+description: Reply style — terse by default (overrides verbose defaults)
+alwaysApply: true
+---
+
+# Reply style (always)
+
+Terse. Accurate. No fluff.
+
+- No pleasantries, no tool narration
+- Fragments OK: [problem]. [cause]. [fix]
+- Code/commits/PRs: normal professional prose
+- Off only if user says "normal mode" / "stop caveman", or security / irreversible / user confused
+
+Long audits/lists: bullets, not essays. No mermaid unless user asks.

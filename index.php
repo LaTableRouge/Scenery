@@ -21,7 +21,7 @@ $vite = new Vite();
 
     <title>The Scenery</title>
 
-    <?php $vite->enqueueScript('src/scripts/app.js', true); ?>
+    <?php $vite->enqueueScript('src/scripts/app.ts', true); ?>
 </head>
 
 <body>

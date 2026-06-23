@@ -60,7 +60,6 @@ module.exports = {
 		],
 		'scss/at-extend-no-missing-placeholder': null,
 		'scss/at-function-pattern': null,
-		'scss/at-import-partial-extension-blacklist': null,
 		'scss/at-mixin-pattern': null,
 		'scss/dollar-variable-pattern': null,
 		'scss/no-global-function-names': null,

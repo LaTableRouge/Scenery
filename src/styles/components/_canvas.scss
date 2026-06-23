@@ -5,11 +5,7 @@ main {
     left: 50%;
   }
 
-  #celestials__layers {
-    transform: translateX(-50%);
-  }
-
-  #stars__layers {
+  :is(#celestials__layers, #stars__layers, #scenery__layers) {
     transform: translateX(-50%);
   }
 

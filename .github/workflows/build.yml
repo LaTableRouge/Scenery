@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RELEASE_NAME: 'scenery-app'
-      FILES_TO_INCLUDE: 'LICENSE.txt index.php config.js includes build'
+      FILES_TO_INCLUDE: 'LICENSE.txt index.php includes build'
     steps:
       - uses: actions/checkout@v4
         with:
