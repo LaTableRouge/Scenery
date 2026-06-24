@@ -8,14 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RELEASE_NAME: 'scenery-app'
-      FILES_TO_INCLUDE: 'LICENSE.txt index.php config.js includes build'
+      FILES_TO_INCLUDE: 'LICENSE.txt index.php includes build'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: 24.0.0
 
@@ -37,7 +37,7 @@ jobs:
 
       # Upload the artifact
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: app-build
           path: ${{ github.sha }}.tar.gz

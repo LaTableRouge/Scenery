@@ -1,5 +1,7 @@
 parameters:
     level: 5
+    dynamicConstantNames:
+        - IS_VITE_DEVELOPMENT
     excludePaths:
         - ../vendor/*
     bootstrapFiles:

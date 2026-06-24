@@ -176,3 +176,4 @@ fabric.properties
 /build
 .env
 /assets/img/minified
+vite-env.d.ts

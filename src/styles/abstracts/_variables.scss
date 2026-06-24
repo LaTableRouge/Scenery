@@ -1,41 +1,20 @@
-// -----------------------------------------------------------------------------
-// This file contains all application-wide Sass variables.
-// -----------------------------------------------------------------------------
+// Landscape palette (0–10) and named colors updated at runtime via CSS custom properties.
 
-$pictures-path: '../img';
-
-//fonts
-$fonts-path: '../fonts';
-$icomoon-font-path: '#{$fonts-path}/icomoon/fonts';
-
-$fonts: (
-  'title': 'Acumin Pro',
-  'text': 'Montserrat'
+$palette: (
+  0: #fff,
+  1: #eee,
+  2: #d2d2d2,
+  3: #c5c5c5,
+  4: #a2a2a2,
+  5: #b1b1b1,
+  6: #838383,
+  7: #737373,
+  8: #393939,
+  9: #1f1f1f,
+  10: #000
 );
 
 $colors: (
   'white': #ffffff,
   'black': #000000
 );
-
-$grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1440px,
-  fhd: 1900px
-);
-
-$container-max-widths: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1440px,
-  fhd: 1900px
-);
-
-$logo_height: 130px;

@@ -3,147 +3,111 @@
 ![Node](https://img.shields.io/badge/node-%3E%3D%2022-brightgreen)
 ![PHP](https://img.shields.io/badge/php-%5E8-blue)
 
-[![Monotone Landscape Illustration](https://scenery.mlnop.fr/build/assets/img/preview.png)](https://scenery.mlnop.fr/)
+[![Preview](https://scenery.mlnop.fr/build/assets/img/preview.png)](https://scenery.mlnop.fr/)
 
-A repository showcasing a monotone illustration of a landscape, with a wide grass field, trees, mountains, and a small house.
-The illustration dynamically represents the solar system planets based on the user's time, date, and location.
-The color scheme of the website changes according to the time of day, and a night sky with stars appears during nightime hours.
+A landscape illustration that follows the time of day: parallax scenery, planet positions from your location, and a star field at night.
+Colors shift through dawn, day, dusk, and night using [Astronomy Engine](https://www.npmjs.com/package/astronomy-engine).
 
-[Live preview](https://scenery.mlnop.fr/)
+**[Live demo](https://scenery.mlnop.fr/)**
 
-## Features
+## What it does
 
-- Foreground grass field, trees, background mountain range, and a small house with parallax based on the mouse cursor.
-- Solar system planets' representation based on the user's time, date, and location.
-- Dynamic color changes reflecting the time of day.
-- Night sky with stars during nightime.
-- Utilizes the Astronomy Engine npm package.
-- Implemented in vanilla JavaScript, SCSS, and PHP (why PHP ? because I like it).
-- Compiled with ViteJS.
+- Parallax landscape (field, trees, mountains, house) on desktop
+- Sun, Moon, and planets drawn from real astronomy data
+- Sky palette and CSS colors driven by the current time of day
+- Stars at night; optional config panel to toggle layers and time presets
+- PHP serves the page and switches between Vite dev assets and production build output
 
-## Upcoming Features
+## Stack
 
-- **Tilt Angle Adjustment**: The tilt angle for the planets is not right idk why.
+- **Frontend:** TypeScript, SCSS, Vite
+- **Backend:** PHP 8+ (entry page and asset manifest)
+- **Tooling:** ESLint, Stylelint, PHPStan, Husky
 
-- **Accurate Stars' Positions**: We're also planning to incorporate accurate star positions based on location and time, adding a touch of realism to the night sky.
+## Getting started
 
-## Table of Contents
+**Requirements:** PHP 8.0+, Node.js 22+, [Composer](https://getcomposer.org/)
 
-- [Installation](#installation)
-- [Docker Setup](#docker-setup)
-- [Usage](#usage)
-- [Dependencies](#dependencies)
-- [Credits](#credits)
-- [Contributing](#contributing)
-- [License](#license)
+```bash
+git clone https://github.com/MLNOP/Scenery.git
+cd Scenery
+composer install
+npm install
+```
 
-## Installation
+**Development** (Vite HMR on port `5173`):
 
-1. Make sure you have PHP 8.0+ and Node.js 22 installed.
-2. Clone this repository: `git clone https://github.com/MLNOP/Scenery.git`
-3. Navigate to the project directory: `cd Scenery`
-4. Install Node.js dependencies: `npm install`
-5. Install PHP dependencies: `composer install`
+```bash
+npm run watch
+```
 
-## Docker Setup
+Serve the project with PHP (or Docker below) and open the site in your browser.
 
-This project includes a Docker configuration for easy development and deployment. The setup uses PHP 8.3 with Apache and includes Node.js 24 for running Vite.
+**Production build:**
 
-### Prerequisites
+```bash
+npm run build
+```
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
-- [Traefik](https://traefik.io/) setup (if using the provided Traefik labels)
+Output goes to `build/`. PHP reads `build/.vite/manifest.json` to load compiled assets.
 
-### Quick Start
+**Lint / format:**
 
-1. Create a `.env` file in the root directory:
+```bash
+npm run beautify:all
+```
+
+## Docker
+
+PHP 8.3 + Apache + Node.js 24. Optional [Traefik](https://traefik.io/) labels are included.
+
+1. Create `.env`:
 
    ```bash
    PROJECT_NAME=scenery
    APP_FQDN=local.scenery.com
    ```
 
-2. Add to your `/etc/hosts` file (macOS/Linux) or `C:\Windows\System32\drivers\etc\hosts` (Windows):
+2. Add to hosts (`127.0.0.1 local.scenery.com`).
 
-   ```text
-   127.0.0.1 local.scenery.com
-   ```
-
-3. Build and start the container:
+3. Start:
 
    ```bash
    docker compose build
    docker compose up -d
-   ```
-
-4. Install dependencies inside the container:
-
-   ```bash
    docker compose exec docker_app composer install
    docker compose exec docker_app npm install
    ```
 
-5. Access the application at `http://local.scenery.com` (or your configured `APP_FQDN`)
+4. Open `http://local.scenery.com` and run Vite inside the container:
 
-### Development
+   ```bash
+   docker compose exec docker_app npm run watch
+   ```
 
-To run the Vite dev server inside the container:
+Useful commands: `docker compose down`, `docker compose exec docker_app bash`, `docker compose logs -f docker_app`.
 
-```bash
-docker compose exec docker_app npm run watch
-```
+## Known limitations
 
-The Vite dev server will be available on port `5173`.
-
-### Common Commands
-
-```bash
-# Start/Stop containers
-docker compose up -d
-docker compose down
-
-# Access container shell
-docker compose exec docker_app bash
-
-# View logs
-docker compose logs -f docker_app
-
-# Rebuild after changes
-docker compose build --no-cache
-docker compose up -d
-```
-
-## Usage
-
-1. Run the development server: `npm run watch`
-2. Open your browser and navigate to the provided URL.
-3. Explore the beautiful monotone landscape illustration with dynamically changing elements based on time, date, and location.
-
-## Dependencies
-
-- [ViteJS](https://vitejs.dev/): Fast, opinionated web dev build tool.
-- [PHP 8.0+](https://www.php.net/): Server-side scripting language.
-- [Node.js 22+](https://nodejs.org/): JavaScript runtime.
-- [Astronomy Engine](https://www.npmjs.com/package/astronomy-engine): NPM package for astronomy calculations.
+- Planet phase tilt may still need visual tuning
+- Star field uses a stylized dome projection, not a full planetarium model
 
 ## Credits
 
-Stuff who inspired/helped me
+Inspired by or built with help from:
 
-- [Moon & sun phases](https://www.timeanddate.com/astronomy/france/avignon)
-- [Moon Phase on js canvas](https://codepen.io/anowodzinski/pen/ZWKXPQ)
+- [timeanddate.com — Moon & sun phases](https://www.timeanddate.com/astronomy/france/avignon)
+- [Moon phase on canvas (CodePen)](https://codepen.io/anowodzinski/pen/ZWKXPQ)
 - [Don Cross sky view](http://cosinekitty.com/sky_view.html)
-- [Firewatch-style SVG parallax landscape](https://codepen.io/accudio/pen/GRNmbjJ)
-- [Chat GPT](https://openai.com/blog/chatgpt)
+- [Firewatch-style parallax landscape (CodePen)](https://codepen.io/accudio/pen/GRNmbjJ)
+- [Astronomy Engine](https://github.com/cosinekitty/astronomy)
 
 ## Contributing
 
-Contributions are welcome! Here's how you can get involved:
-
-1. Fork the repository and create a new branch.
-2. Make your changes and test them locally.
-3. Submit a pull request explaining your changes.
+1. Fork the repo and create a branch
+2. Make and test your changes locally
+3. Open a pull request with a short description
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+[MIT License](LICENSE.txt)
