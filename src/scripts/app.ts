@@ -40,10 +40,4 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		})
 	})
-
-	window.addEventListener('message', (event) => {
-		if (event.origin.includes('.mlnop.fr') || event.origin === 'http://local.mlnop.fr' || event.origin === 'http://local.library.fr' || event.origin === 'https://latablegrise.fr' || event.origin === 'https://latableorange.fr' || event.origin === 'https://latablerouge.ninja' || event.origin === 'https://latablebleue.fr') {
-			window.parent.postMessage(document.documentElement.style.cssText, '*')
-		}
-	})
 })

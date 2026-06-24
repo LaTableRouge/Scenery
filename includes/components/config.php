@@ -196,8 +196,6 @@
             <input type="submit" value="OK">
         </form>
 
-        <a class="config-wrapper__go-back" href="https://mlnop.fr">Go back to the portal</a>
-
         <details class="config-wrapper__credits">
             <summary>Credits</summary>
             <ul>
@@ -212,9 +210,6 @@
                 </li>
                 <li>
                     <a target="_blank" rel="nofollow" href="https://github.com/cosinekitty/astronomy">Astronomy Engine</a>
-                </li>
-                <li>
-                    <a target="_blank" rel="nofollow" href="https://openai.com/blog/chatgpt">Chat GPT</a>
                 </li>
             </ul>
         </details>
