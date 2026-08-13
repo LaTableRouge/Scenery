@@ -52,7 +52,7 @@ const celestialBodiesConfig: Record<string, CelestialBodyConfig> = {
 	Moon: {
 		name: 'Moon',
 		color: '#f4f6f0',
-		size: 30,
+		size: 28,
 		phases: true,
 		shadowBlur: false
 	},
