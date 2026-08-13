@@ -1,6 +1,6 @@
 {
 	"name": "scenery",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "## VHosts",
 	"main": "vite.config.ts",
 	"scripts": {
